@@ -24,18 +24,23 @@ from wordcloud import WordCloud, ImageColorGenerator
 
 d = path.dirname(__file__)
 
-stopwords_path = d + '/wc_cn/stopwords_cn_en.txt'
+stopwords_path = d + 'wc_cn/stopwords_cn_en.txt'
 # Chinese fonts must be set
-font_path = d + '/fonts/SourceHanSerif/SourceHanSerifK-Light.otf'
+font_path = d + 'fonts/SourceHanSerif/SourceHanSerifK-Light.otf'
 
 # the path to save worldcloud
-imgname1 = d + '/wc_cn/LuXun.jpg'
-imgname2 = d + '/wc_cn/LuXun_colored.jpg'
+# imgname1 = d + 'wc_cn/LuXun.jpg'
+# imgname2 = d + 'wc_cn/LuXun_colored.jpg'
+imgname1 = d + 'wc_cn/output/test.jpg'
+imgname2 = d + 'wc_cn/output/test_colored.jpg'
 # read the mask / color image taken from
-back_coloring = imread(path.join(d, d + '/wc_cn/LuXun_color.jpg'))
+# back_coloring = imread(path.join(d, d + 'wc_cn/LuXun_color.jpg'))
+back_coloring = imread(path.join(d, d + 'wc_cn/bg.jpeg'))
 
 # Read the whole text.
-text = open(path.join(d, d + '/wc_cn/CalltoArms.txt')).read()
+# text = open(path.join(d, d + 'wc_cn/CalltoArms.txt')).read()
+# text = open(path.join(d, d + 'wc_cn/30841409578290.txt')).read()
+text = open(path.join(d, d + 'wc_cn/test.txt')).read()
 
 # if you want use wordCloud,you need it
 # add userdict by add_word()
@@ -61,14 +66,14 @@ def jieba_processing_txt(text):
     return ' '.join(mywordlist)
 
 
-wc = WordCloud(font_path=font_path, background_color="white", max_words=2000, mask=back_coloring,
+wc = WordCloud(font_path=font_path, background_color="black", max_words=2000, mask=back_coloring,
                max_font_size=100, random_state=42, width=1000, height=860, margin=2,)
 
 
 wc.generate(jieba_processing_txt(text))
 
 # create coloring from image
-image_colors_default = ImageColorGenerator(back_coloring)
+# image_colors_default = ImageColorGenerator(back_coloring)
 
 plt.figure()
 # recolor wordcloud and show
@@ -91,5 +96,7 @@ plt.imshow(back_coloring, interpolation="bilinear")
 plt.axis("off")
 plt.show()
 
+image = wc.to_image()
+image.show()
 # save wordcloud
 wc.to_file(path.join(d, imgname2))

@@ -31,5 +31,5 @@ plt.axis("off")
 plt.show()
 
 # The pil way (if you don't have matplotlib)
-# image = wordcloud.to_image()
-# image.show()
+image = wordcloud.to_image()
+image.show()
